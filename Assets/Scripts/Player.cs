@@ -8,6 +8,11 @@ using UnityEngine.SceneManagement;
 namespace RizqyNetworking {
 	public class Player : NetworkBehaviour {
 
+		[Header("playerCharacter")]
+		[SerializeField] GameObject Character;
+		
+
+		[Header("SyncVar")]
 		public static Player localPlayer;
 		[SyncVar] public string matchID;
 		[SyncVar] public int playerIndex;
@@ -18,9 +23,9 @@ namespace RizqyNetworking {
 		[SerializeField] GameObject playerLobbyUI;
 
 
+
 		void Awake() {
 			networkMatchChecker = GetComponent<NetworkMatchChecker>();
-
 
 		}
 
@@ -140,14 +145,27 @@ namespace RizqyNetworking {
 			UI_Lobby.instance.SearchSuccess(success, _matchID);
 		}
 
-		#endregion
+        #endregion
 
+        #region Lobby Waiting
+		public void LobbyWaiting()
+        {
+			SpawnCharacter();
+			TargetLobbyWaiting();
+        }
 
+	
+		void TargetLobbyWaiting()
+        {
+			SceneManager.LoadScene(2, LoadSceneMode.Additive);
+        }
 
-		// ! BEGIN MATCH
-		#region BEGIN MATCH
+        #endregion
 
-		public void BeginGame()
+        // ! BEGIN MATCH
+        #region BEGIN MATCH
+
+        public void BeginGame()
 		{
 			CmdBeginGame();
 		}
@@ -171,7 +189,7 @@ namespace RizqyNetworking {
 		{
 			Debug.Log($"Match ID : {matchID} | Begining ");
 			//! Load Game scene here
-			SceneManager.LoadScene(2, LoadSceneMode.Additive);
+			SceneManager.LoadScene(3, LoadSceneMode.Single);
 		}
 
         #endregion
@@ -211,6 +229,20 @@ namespace RizqyNetworking {
 				Destroy(playerLobbyUI);
             }
 
+        }
+
+        #endregion
+
+        #region
+		public void SpawnCharacter ()
+        {
+			Camera.main.enabled = false;
+			GameObject.Instantiate(Character,transform);
+        }
+
+		public void CameraPlayer()
+        {
+			Character.gameObject.SetActive(false);
         }
 
         #endregion

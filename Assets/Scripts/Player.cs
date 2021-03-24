@@ -25,6 +25,7 @@ namespace RizqyNetworking {
 
 		}
 
+		// Initialize on Client Start
 		public override void OnStartClient()
 		{
 			if (isLocalPlayer) {
@@ -37,15 +38,17 @@ namespace RizqyNetworking {
 			
 		}
 
+		// Player closed
 		public override void OnStopClient()
 		{
-			Debug.Log($"Player Disconnected");
+			Debug.Log($"<color=red>Player Disconnected</color>");
 			ClientDisconnect();	
 		}
 
+		// Server Stopped
 		public override void OnStopServer()
 		{
-			Debug.Log($"Client Stopped from server ");
+			Debug.Log($"<color=red>Client Stopped from server</color>");
 			ServerDisconnect(); 
 		}
 
@@ -178,9 +181,10 @@ namespace RizqyNetworking {
 
         #endregion
 
+// Out From ROOM
         #region  MATCH DISCONNECTED
 
-		public void DisconnectGame()
+        public void DisconnectGame()
         {
 			CmdDisconnectGame();
         }
@@ -204,7 +208,7 @@ namespace RizqyNetworking {
 		void RpcDisconnectGame ()
         {
 			ClientDisconnect();
-            SceneDisconnect();
+            SceneDisconnect(); // Terminate Scene Lobby Waiting 
         }
 
 		void ClientDisconnect()
@@ -228,7 +232,7 @@ namespace RizqyNetworking {
 		public void SceneDisconnect ()
         {
 			// Save Player GameObject
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(this.gameObject); // Save Player GameObject
 			SceneManager.LoadScene(1, LoadSceneMode.Single);
 			
 		}

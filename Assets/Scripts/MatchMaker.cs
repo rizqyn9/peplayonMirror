@@ -28,6 +28,7 @@ namespace RizqyNetworking{
 		public Match() { }
 	}
 
+
 	[System.Serializable]
 	public class SyncListGameObject : SyncList<GameObject> { }
 
@@ -48,6 +49,7 @@ namespace RizqyNetworking{
 		void Start() {
 			instance = this;	
 		}
+
 
 // ! HOSTED MATCH
 		public bool HostGame (string _matchID, GameObject _player, out int playerIndex, bool publicMatch) {
@@ -96,6 +98,7 @@ namespace RizqyNetworking{
 			}
 		}
 
+// Button Search Game
 		public bool SearchGame(GameObject _player, out int playerIndex, out string matchID )
         {
 			playerIndex = -1;
@@ -116,6 +119,7 @@ namespace RizqyNetworking{
 			return false;
         }
 
+// Button Begin Game
 		public void BeginGame (string _matchID)
         {
 			GameObject newTurnManager = Instantiate(turnManagerPrefab);
@@ -138,6 +142,7 @@ namespace RizqyNetworking{
             }
         }
 
+//Generated room code
 		public static string GetRandomMatchID() {
 			string _id = string.Empty;
 			for(int i = 0 ; i < 5 ; i++) {
@@ -152,7 +157,8 @@ namespace RizqyNetworking{
 			return _id;
 		}
 
-		public void PlayerDisconnected(Player player, string _matchID)
+// Clear and terminate room if (player.count == 0)
+        public void PlayerDisconnected(Player player, string _matchID)
         {
 			for(int i = 0; i < matches.Count; i++)
             {
@@ -176,6 +182,7 @@ namespace RizqyNetworking{
         }
 	}
 
+// Hash room code
 	public static class MatchExtensions {
 		public static Guid ToGuid (this string id) {
 			MD5CryptoServiceProvider provider = new MD5CryptoServiceProvider();

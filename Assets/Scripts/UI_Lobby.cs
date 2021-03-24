@@ -17,7 +17,6 @@ namespace RizqyNetworking {
 		[SerializeField] Canvas		connectCanvas;
 
 
-
 		[Header("Lobby")]
 		[SerializeField] Transform	UI_PlayerParent;
 		[SerializeField] GameObject UI_PlayerPrefab;
@@ -32,8 +31,10 @@ namespace RizqyNetworking {
 			instance = this ;
 		}
 
+
         void Update()
         {
+			// Key for show/hidden billboard players room
             if (Input.GetKeyDown(KeyCode.Escape) && Player.localPlayer.matchID != null )
             {
                 if (lobbyCanvas.enabled)
@@ -48,6 +49,7 @@ namespace RizqyNetworking {
             }  
         }
 
+		// Button Host Public
         public void HostPublic()
 		{
 			lobbySelectables.ForEach(x => x.interactable = false);
@@ -55,6 +57,7 @@ namespace RizqyNetworking {
 			Player.localPlayer.HostGame(true);
 		}
 
+		//Button Host Private
 		public void HostPrivate()
 		{
 			lobbySelectables.ForEach(x => x.interactable = false);
@@ -62,7 +65,7 @@ namespace RizqyNetworking {
 			Player.localPlayer.HostGame(false);
 		}
 
-
+		// Host Checking Created code
 		public void HostSuccess (bool success, string _matchID) {
 			if(success) {
 				lobbyCanvas.enabled = true;
@@ -81,6 +84,7 @@ namespace RizqyNetworking {
 			}
 		}
 
+		// Button Join
 		public void Join() {
 			joinMatchInput.interactable = false;
 			lobbySelectables.ForEach(x => x.interactable = false);
@@ -88,7 +92,8 @@ namespace RizqyNetworking {
 
 			Player.localPlayer.JoinGame(joinMatchInput.text.ToUpper());
 		}
-     
+
+		// Checkking client success Join ?
         public void JoinSuccess (bool success,string _matchID) {
 			if(success) {
 				lobbyCanvas.enabled = true;
@@ -107,6 +112,7 @@ namespace RizqyNetworking {
 			}
 		}
 
+		// Spawn Player UI to billboard
 		public GameObject SpawnPlayerUIPrefab(Player player)
         {
 			GameObject newUIPlayer = Instantiate(UI_PlayerPrefab, UI_PlayerParent);
@@ -115,11 +121,13 @@ namespace RizqyNetworking {
 			return newUIPlayer;
         }
 
+		// Button Start game in Hosted Player
 		public void BeginGame()
         {
 			Player.localPlayer.BeginGame();
         }
 
+		// Button Search Public Room
 		public void SearchGame ()
         {
 			Debug.Log($"Searching");
@@ -127,6 +135,7 @@ namespace RizqyNetworking {
 			StartCoroutine(SearchingForGame());
         }
 
+		// Time Intreval
 		IEnumerator SearchingForGame ()
         {
 			searchCanvas.enabled = true;
@@ -152,6 +161,7 @@ namespace RizqyNetworking {
 
 		}
 
+		// Checking Success searching ?
 		public void SearchSuccess(bool success, string matchID)
 		{
             if (success)
@@ -163,13 +173,15 @@ namespace RizqyNetworking {
             }
 		}
 
+		// Buttn canceliing search
 		public void SearchCancel ()
         {
 			Debug.Log("Cancel");
 			searching = false;
         }
 
-		public void DisconnectedLobby ()
+// Out from Room
+        public void DisconnectedLobby ()
         {
 			if (playerLobbyUI != null) Destroy(playerLobbyUI);
 			Player.localPlayer.DisconnectGame();

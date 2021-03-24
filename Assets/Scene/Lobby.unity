@@ -148,7 +148,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 44950335}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &44950337
 Camera:
   m_ObjectHideFlags: 0
@@ -616,6 +616,8 @@ GameObject:
   - component: {fileID: 126385748}
   - component: {fileID: 126385750}
   - component: {fileID: 126385749}
+  - component: {fileID: 126385751}
+  - component: {fileID: 126385752}
   m_Layer: 5
   m_Name: Connect
   m_TagString: Untagged
@@ -682,7 +684,45 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 126385747}
-  m_CullTransparentMesh: 1
+  m_CullTransparentMesh: 0
+--- !u!223 &126385751
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126385747}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 1
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 1
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &126385752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126385747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &186606902
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,8 +933,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 126385748}
-  - {fileID: 1404394524}
   - {fileID: 1009084219}
+  - {fileID: 1404394524}
   m_Father: {fileID: 348040642}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1094,6 +1134,7 @@ MonoBehaviour:
   joinMatchInput: {fileID: 1563306444}
   lobbyCanvas: {fileID: 1404394520}
   searchCanvas: {fileID: 1009084222}
+  connectCanvas: {fileID: 126385751}
   UI_PlayerParent: {fileID: 199429284}
   UI_PlayerPrefab: {fileID: 8306149637893049340, guid: 2606a292ba61949b6bc66698cde63d4f, type: 3}
   matchIDText: {fileID: 1097149414}
@@ -1732,7 +1773,7 @@ RectTransform:
   - {fileID: 422917306}
   - {fileID: 98592010}
   m_Father: {fileID: 242849301}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2321,7 +2362,7 @@ RectTransform:
   - {fileID: 2048056402}
   - {fileID: 96951602}
   m_Father: {fileID: 242849301}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

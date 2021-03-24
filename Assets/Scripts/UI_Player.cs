@@ -8,12 +8,12 @@ namespace RizqyNetworking
     public class UI_Player : MonoBehaviour
     {
         [SerializeField] Text text;
-        Player player;
+        public Player player;
 
         public void SetPlayer(Player player)
         {
             this.player = player;
-            text.text = "Player" + player.playerIndex.ToString();
+            text.text = "Player" + player.playerIndex.ToString() + player.matchID.ToString();
         }
 
     }

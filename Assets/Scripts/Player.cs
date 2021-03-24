@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +13,10 @@ namespace RizqyNetworking {
 
 		[SyncVar] public Match currentMatch;
 		[SerializeField] GameObject playerLobbyUI;
+
+
+		[Header("In Game")]
+		[SerializeField] GameObject PlayerCharacter;
 
 
 		void Awake() {
@@ -55,6 +56,7 @@ namespace RizqyNetworking {
 		public void HostGame(bool publicMatch) {
 			string matchID = MatchMaker.GetRandomMatchID();
 			CmdHostGame(matchID, publicMatch);
+			
 		}
 
 		[Command]
@@ -143,7 +145,7 @@ namespace RizqyNetworking {
 		#endregion
 
 
-
+		
 		// ! BEGIN MATCH
 		#region BEGIN MATCH
 
@@ -171,7 +173,7 @@ namespace RizqyNetworking {
 		{
 			Debug.Log($"Match ID : {matchID} | Begining ");
 			//! Load Game scene here
-			SceneManager.LoadScene(2, LoadSceneMode.Additive);
+			SceneManager.LoadScene(3, LoadSceneMode.Additive);
 		}
 
         #endregion
@@ -198,10 +200,11 @@ namespace RizqyNetworking {
 
         }
 
-		[ClientRpc]
+        [ClientRpc]
 		void RpcDisconnectGame ()
         {
 			ClientDisconnect();
+            SceneDisconnect();
         }
 
 		void ClientDisconnect()
@@ -214,5 +217,22 @@ namespace RizqyNetworking {
         }
 
         #endregion
-    }
+
+		#region
+
+		public void WaitingScene()
+        {
+			SceneManager.LoadScene(2, LoadSceneMode.Additive);
+        }
+
+		public void SceneDisconnect ()
+        {
+			// Save Player GameObject
+            DontDestroyOnLoad(this.gameObject);
+			SceneManager.LoadScene(1, LoadSceneMode.Single);
+			
+		}
+
+		#endregion
+	}
 }

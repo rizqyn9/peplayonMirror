@@ -14,6 +14,7 @@ namespace RizqyNetworking {
 		[SerializeField] InputField	joinMatchInput;
 		[SerializeField] Canvas		lobbyCanvas;
 		[SerializeField] Canvas		searchCanvas;
+		[SerializeField] Canvas		connectCanvas;
 
 
 
@@ -22,8 +23,8 @@ namespace RizqyNetworking {
 		[SerializeField] GameObject UI_PlayerPrefab;
 		[SerializeField] Text		matchIDText;
 		[SerializeField] GameObject	beginGameButton;
-
 		GameObject playerLobbyUI;
+
 
 		bool searching = false;
 
@@ -31,7 +32,23 @@ namespace RizqyNetworking {
 			instance = this ;
 		}
 
-		public void HostPublic()
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) && Player.localPlayer.matchID != null )
+            {
+                if (lobbyCanvas.enabled)
+                {
+					lobbyCanvas.enabled = false;
+
+                } else
+                {
+					lobbyCanvas.enabled = true;
+
+                }
+            }  
+        }
+
+        public void HostPublic()
 		{
 			lobbySelectables.ForEach(x => x.interactable = false);
 
@@ -53,7 +70,12 @@ namespace RizqyNetworking {
 				playerLobbyUI = SpawnPlayerUIPrefab(Player.localPlayer);
 				matchIDText.text = _matchID;
 				beginGameButton.SetActive(true);
-			} else {
+
+				connectCanvas.enabled = false;
+				Player.localPlayer.WaitingScene();
+
+			}
+			else {
 				joinMatchInput.interactable = true;
 				lobbySelectables.ForEach(x => x.interactable = true);
 			}
@@ -74,6 +96,10 @@ namespace RizqyNetworking {
 
 				playerLobbyUI = SpawnPlayerUIPrefab(Player.localPlayer);
 				matchIDText.text = _matchID;
+
+				connectCanvas.enabled = false;
+				Player.localPlayer.WaitingScene();
+
 			} else {
 				joinMatchInput.interactable = true;
 				lobbySelectables.ForEach(x => x.interactable = true);
@@ -148,6 +174,7 @@ namespace RizqyNetworking {
 			if (playerLobbyUI != null) Destroy(playerLobbyUI);
 			Player.localPlayer.DisconnectGame();
 
+			connectCanvas.enabled = true;
 			lobbyCanvas.enabled = false;
 			lobbySelectables.ForEach(x => x.interactable = true);
 			beginGameButton.SetActive(false);

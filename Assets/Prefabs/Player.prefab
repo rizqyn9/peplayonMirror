@@ -79,3 +79,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  matchID: 
+  playerIndex: 0
+  currentMatch:
+    matchID: 
+    publicMatch: 0
+    inMatch: 0
+    matchFull: 0
+  playerLobbyUI: {fileID: 8306149637893049340, guid: 2606a292ba61949b6bc66698cde63d4f, type: 3}
+  PlayerCharacter: {fileID: 6385896560538556730, guid: 4564a92686b694f4bb0d1f6b4af5d3bd, type: 3}
